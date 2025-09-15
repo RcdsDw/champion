@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="fr">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Finale de Coupe du Monde 🏆</title>
+  <style>
+    body {
+      margin: 0;
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #0f1724;
+      color: #fff;
+      font-family: sans-serif;
+    }
+
+    .card {
+      text-align: center;
+      padding: 20px;
+    }
+
+    h1 {
+      margin-bottom: 20px;
+    }
+
+    .countdown {
+      display: flex;
+      gap: 15px;
+      justify-content: center;
+    }
+
+    .seg {
+      background: #1b2a41;
+      padding: 15px;
+      border-radius: 8px;
+      min-width: 80px;
+    }
+
+    .num {
+      font-size: 28px;
+      font-weight: bold;
+      color: #7cdbd5;
+    }
+
+    .lbl {
+      margin-top: 6px;
+      font-size: 12px;
+      color: #aaa;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="card">
+    <h1>Finale de Coupe du Monde 🏆</h1>
+    <div class="countdown">
+      <div class="seg">
+        <div class="num" id="days">0</div>
+        <div class="lbl">Jours</div>
+      </div>
+      <div class="seg">
+        <div class="num" id="hours">00</div>
+        <div class="lbl">Heures</div>
+      </div>
+      <div class="seg">
+        <div class="num" id="minutes">00</div>
+        <div class="lbl">Minutes</div>
+      </div>
+      <div class="seg">
+        <div class="num" id="seconds">00</div>
+        <div class="lbl">Secondes</div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const now = new Date();
+    const target = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+    target.setDate(target.getDate() + ((5 - target.getDay() + 7) % 7));
+    target.setHours(22, 30, 0, 0);
+
+    function pad(n) { return String(n).padStart(2, '0'); }
+
+    function update() {
+      const now = new Date();
+      const diff = target - now;
+
+      let totalSeconds = Math.floor(diff / 1000);
+      if (totalSeconds < 0) totalSeconds = 0;
+
+      const days = Math.floor(totalSeconds / 86400);
+      const hours = Math.floor((totalSeconds % 86400) / 3600);
+      const minutes = Math.floor((totalSeconds % 3600) / 60);
+      const seconds = totalSeconds % 60;
+
+      document.getElementById('days').textContent = days;
+      document.getElementById('hours').textContent = pad(hours);
+      document.getElementById('minutes').textContent = pad(minutes);
+      document.getElementById('seconds').textContent = pad(seconds);
+    }
+
+    update();
+    setInterval(update, 1000);
+  </script>
+</body>
+
+</html>
